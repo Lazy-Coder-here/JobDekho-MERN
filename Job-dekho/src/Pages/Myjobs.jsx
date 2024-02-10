@@ -17,7 +17,7 @@ const Myjobs = () => {
         setJobs(data);
         setIsLoading(false);
       });
-  }, [searchText]);
+  }, [searchText, jobs]);
 
   // pagination
   const indexOfLastItem = currentPage * itemsPerPage;
