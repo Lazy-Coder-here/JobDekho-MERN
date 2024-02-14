@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from "react";
-import { Link } from "react-router-dom";
+import { Link, Navigate } from "react-router-dom";
+import { useAuth } from "../contexts/authContext";
 
 const Myjobs = () => {
   const email = "rahulb@mail.com";
@@ -9,8 +10,9 @@ const Myjobs = () => {
   const [currentPage, setCurrentPage] = useState(1);
   const itemsPerPage = 4;
 
+  const { userLoggedIn } = useAuth();
+
   useEffect(() => {
-    setIsLoading(true);
     fetch(`http://localhost:3000/myJobs/rahulb@mail.com`)
       .then((res) => res.json())
       .then((data) => {
@@ -68,6 +70,7 @@ const Myjobs = () => {
 
   return (
     <div className="max-w-screen-2xl container mx-auto xl:px-24 px-4">
+      {!userLoggedIn && <Navigate to={"/login"} replace={true} />}
       <div className="my-jobs-container">
         <h1 className="text-center p-4">All My Jobs</h1>
         <div className="p-2 text-center mb-2">
@@ -136,7 +139,13 @@ const Myjobs = () => {
                   </tr>
                 </thead>
 
-                {isLoading ? (
+                {currentJobs.length === 0 ? (
+                  <tbody>
+                    <tr className="flex items-center justify-center h-20">
+                      <th>No Jobs Found</th>
+                    </tr>
+                  </tbody>
+                ) : isLoading ? (
                   <tbody>
                     <tr className="flex items-center justify-center h-20">
                       <th>Loading...</th>

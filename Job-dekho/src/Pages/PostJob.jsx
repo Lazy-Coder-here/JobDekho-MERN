@@ -1,6 +1,8 @@
 import React, { useState } from "react";
 import { useForm } from "react-hook-form";
 import CreatableSelect from "react-select/creatable";
+import { useAuth } from "../contexts/authContext";
+import { Navigate } from "react-router-dom";
 
 const PostJob = () => {
   const [selectedOption, setSelectedOption] = useState(null);
@@ -11,9 +13,11 @@ const PostJob = () => {
     formState: { errors },
   } = useForm();
 
+  const { userLoggedIn } = useAuth();
+
   const onSubmit = (data) => {
     data.skills = selectedOption;
-    // console.log(data);
+    console.log(data);
     fetch("http://localhost:3000/post-job", {
       method: "POST",
       headers: { "content-type": "application/json" },
@@ -21,7 +25,7 @@ const PostJob = () => {
     })
       .then((res) => res.json())
       .then((result) => {
-        console.log(result);
+        // console.log(result);
         if (result.acknowledged === true) {
           alert("Job Posted Successfully!");
         }
@@ -46,6 +50,7 @@ const PostJob = () => {
 
   return (
     <div className="max-w-screen-2xl container mx-auto xl:px-24 px-4">
+      {!userLoggedIn && <Navigate to={"/login"} replace={true} />}
       {/* form */}
 
       <div className="bg-[#FAFAFA] py-10 px-4 lg:px-16">

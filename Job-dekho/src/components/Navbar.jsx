@@ -1,11 +1,13 @@
 import React, { useState } from "react";
-import {
-  NavLink,
-  Link
-} from "react-router-dom";
+import { NavLink, useNavigate, Link } from "react-router-dom";
 import { FaBarsStaggered, FaXmark } from "react-icons/fa6";
+import { useAuth } from "../contexts/authContext";
+import { doSignOut } from "../firebase/auth";
 
 const Navbar = () => {
+  const navigate = useNavigate();
+  const { userLoggedIn } = useAuth();
+
   const [isMenuOpen, setMenuOpen] = useState(false);
   const handleMenuToggler = () => {
     setMenuOpen(!isMenuOpen);
@@ -56,15 +58,35 @@ const Navbar = () => {
 
         {/* signup & login btn */}
         <div className="text-base text-primary font-medium space-x-5 hidden lg:block">
-          <Link to="/login" className="py-2 px-5 border rounded">
-            Log in
-          </Link>
-          <Link
-            to="/sign-up"
-            className="py-2 px-5 border rounded bg-blue text-white"
-          >
-            Sign up
-          </Link>
+          {userLoggedIn ? (
+            <div>
+              <button
+                onClick={() => {
+                  doSignOut().then(() => {
+                    navigate("/");
+                  });
+                }}
+                className="py-2 px-5 border rounded bg-blue text-white"
+              >
+                Logout
+              </button>
+            </div>
+          ) : (
+            <div>
+              <Link
+                to="/login"
+                className="py-2 px-5 border border-r-4 shadow rounded"
+              >
+                Log in
+              </Link>
+              <Link
+                to="/sign-up"
+                className="py-2 px-5 border rounded bg-blue text-white"
+              >
+                Sign up
+              </Link>
+            </div>
+          )}
         </div>
 
         {/* mobile menu/view */}
@@ -99,16 +121,29 @@ const Navbar = () => {
               </NavLink>
             </li>
           ))}
-          <li className="text-white py-1">
-            <Link to="/login">
-              Log in
-            </Link>
-          </li>
-          <li className="text-white py-1">
-            <Link to="/sign-up">
-              Sign up
-            </Link>
-          </li>
+          {userLoggedIn ? (
+            <div>
+              <button
+                onClick={() => {
+                  doSignOut().then(() => {
+                    navigate("/");
+                  });
+                }}
+                className="text-white py-1"
+              >
+                Logout
+              </button>
+            </div>
+          ) : (
+            <div>
+              <li className="text-white py-1">
+                <Link to="/login">Log in</Link>
+              </li>
+              <li className="text-white py-1">
+                <Link to="/sign-up">Sign up</Link>
+              </li>
+            </div>
+          )}
         </ul>
       </div>
     </header>
