@@ -13,7 +13,8 @@ const PostJob = () => {
     formState: { errors },
   } = useForm();
 
-  const { userLoggedIn } = useAuth();
+  const { userLoggedIn, currentUser } = useAuth();
+  console.log(currentUser);
 
   const onSubmit = (data) => {
     data.skills = selectedOption;
@@ -203,9 +204,10 @@ const PostJob = () => {
             <label className="block mb-2 text-lg">Job Posted By</label>
             <input
               type="email"
-              placeholder="your email"
-              {...register("postedBy", { maxLength: 20 })}
-              className="create-job-input"
+              defaultValue={currentUser.email}
+              {...register("postedBy")}
+              className="create-job-input opacity-90"
+              disabled
             />
           </div>
 
