@@ -10,10 +10,10 @@ const Myjobs = () => {
   const [currentPage, setCurrentPage] = useState(1);
   const itemsPerPage = 4;
 
-  const { userLoggedIn } = useAuth();
+  const { userLoggedIn, currentUser } = useAuth();
 
   useEffect(() => {
-    fetch(`http://localhost:3000/myJobs/rahulb@mail.com`)
+    fetch(`http://localhost:3000/myJobs/${currentUser.email}`)
       .then((res) => res.json())
       .then((data) => {
         setJobs(data);
@@ -58,7 +58,7 @@ const Myjobs = () => {
       .then((data) => {
         if (data.acknowledged === true) {
           alert("Job Deleted Successfully!");
-          fetch(`http://localhost:3000/myJobs/rahulb@mail.com`)
+          fetch(`http://localhost:3000/myJobs/${currentUser.email}`)
             .then((r) => r.json())
             .then((d) => {
               setJobs(d);
@@ -72,7 +72,7 @@ const Myjobs = () => {
     <div className="max-w-screen-2xl container mx-auto xl:px-24 px-4">
       {!userLoggedIn && <Navigate to={"/login"} replace={true} />}
       <div className="my-jobs-container">
-        <h1 className="text-center p-4">All My Jobs</h1>
+        <h1 className="text-center p-4 font-bold">All My Jobs</h1>
         <div className="p-2 text-center mb-2">
           <input
             onChange={(e) => setSearchText(e.target.value)}

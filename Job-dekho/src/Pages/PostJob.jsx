@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { useForm } from "react-hook-form";
 import CreatableSelect from "react-select/creatable";
 import { useAuth } from "../contexts/authContext";
@@ -6,6 +6,7 @@ import { Navigate } from "react-router-dom";
 
 const PostJob = () => {
   const [selectedOption, setSelectedOption] = useState(null);
+  const [email, setEmail] = useState("");
   const {
     register,
     handleSubmit,
@@ -14,7 +15,12 @@ const PostJob = () => {
   } = useForm();
 
   const { userLoggedIn, currentUser } = useAuth();
-  console.log(currentUser);
+  
+  useEffect(() => {
+    if(userLoggedIn) {
+      setEmail(currentUser.email);
+    }
+  }, [])
 
   const onSubmit = (data) => {
     data.skills = selectedOption;
@@ -204,10 +210,9 @@ const PostJob = () => {
             <label className="block mb-2 text-lg">Job Posted By</label>
             <input
               type="email"
-              defaultValue={currentUser.email}
+              defaultValue={email}
               {...register("postedBy")}
               className="create-job-input opacity-90"
-              disabled
             />
           </div>
 

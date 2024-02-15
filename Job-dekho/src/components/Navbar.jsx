@@ -66,7 +66,7 @@ const Navbar = () => {
                     navigate("/");
                   });
                 }}
-                className="py-2 px-5 border rounded bg-blue text-white"
+                className="py-2 px-4 border rounded bg-blue text-white"
               >
                 Logout
               </button>
