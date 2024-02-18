@@ -4,6 +4,7 @@ import Card from "../components/Card";
 import Jobs from "./Jobs";
 import Sidebar from "../sidebar/Sidebar";
 import Newsletter from "../components/Newsletter";
+import axios from "axios";
 
 const Home = () => {
   const [selectedCategory, setCategory] = useState(null);
@@ -14,13 +15,14 @@ const Home = () => {
 
   useEffect(() => {
     setIsLoading(true);
-    fetch("http://localhost:3000/all-jobs")
-      .then((res) => res.json())
-      .then((data) => {
-        setJobs(data);
-        setIsLoading(false);
-      });
+    async function getJobs() {
+      const { data } = await axios.get("http://localhost:3000/all-jobs");
+      setJobs(data);
+      setIsLoading(false);
+    }
+    getJobs();
   }, []);
+  
   console.log(jobs);
 
   // handle input change
@@ -165,7 +167,7 @@ const Home = () => {
 
         {/* right side */}
         <div className="bg-white p-4 rounded">
-          <Newsletter/>
+          <Newsletter />
         </div>
       </div>
     </div>

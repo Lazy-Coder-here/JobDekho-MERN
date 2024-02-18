@@ -5,18 +5,24 @@ import { TfiBag } from "react-icons/tfi";
 import { GrLocation } from "react-icons/gr";
 import { FaIndianRupeeSign } from "react-icons/fa6";
 import { MdOutlineDateRange } from "react-icons/md";
+import { useAuth } from "../contexts/authContext";
+import { Navigate } from "react-router-dom";
+import axios from "axios";
 
 const JobDetails = () => {
   const { id } = useParams();
   const [job, setJob] = useState([]);
   const [skills, setSkills] = useState([]);
+  const { userLoggedIn } = useAuth();
+
   useEffect(() => {
-    fetch(`http://localhost:3000/all-jobs/${id}`)
-      .then((res) => res.json())
-      .then((data) => {
-        setJob(data);
-        setSkills(data.skills);
-      });
+    async function getData() {
+      const { data } = await axios.get(`http://localhost:3000/all-jobs/${id}`);
+      // console.log(data);
+      setJob(data);
+      setSkills(data.skills);
+    }
+    getData();
   }, []);
 
   const handleApply = async () => {
@@ -32,6 +38,7 @@ const JobDetails = () => {
   console.log(job);
   return (
     <div className="max-w-screen-2xl container mx-auto xl:px-24 px-4 space-y-8">
+      {!userLoggedIn && <Navigate to={"/login"} replace={true} />}
       <Link to="/" className="text-blue underline px-0 py-2">
         Back to Jobs
       </Link>
@@ -94,12 +101,12 @@ const JobDetails = () => {
           <div className="space-y-4">
             <h2 className="mt-4 text-lg font-semibold">Required Skills:</h2>
             <ul className="ml-4 space-x-4 flex flex-row items-center">
-              {skills.map((skill) => (
+              {skills.map(({ label, value }) => (
                 <li
-                  key={skill.label}
+                  key={value}
                   className="bg-gray-200 rounded-xl border-solid-black p-2"
                 >
-                  {skill.value}
+                  {label}
                 </li>
               ))}
             </ul>
