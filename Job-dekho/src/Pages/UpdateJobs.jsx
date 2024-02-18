@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import { useLoaderData } from "react-router-dom";
 import { useForm } from "react-hook-form";
 import CreatableSelect from "react-select/creatable";
+import axios from "axios";
 
 const UpdateJobs = () => {
   const {
@@ -29,22 +30,21 @@ const UpdateJobs = () => {
     formState: { errors },
   } = useForm();
 
-  const onSubmit = (data) => {
+  const onSubmit = async (data) => {
     data.skills = selectedOption;
     // console.log(data);
-    fetch(`http://localhost:3000/update-job/${_id}`, {
-      method: "PATCH",
-      headers: { "content-type": "application/json" },
-      body: JSON.stringify(data),
-    })
-      .then((res) => res.json())
-      .then((result) => {
-        console.log(result);
-        if (result.acknowledged === true) {
-          alert("Job Updated Successfully!");
-        }
-        reset();
-      });
+    const response = await axios.patch(
+      `http://localhost:3000/update-job/${_id}`,
+      data,
+      {
+        headers: { "content-type": "application/json" },
+      }
+    );
+    console.log(response);
+    if (response.data.acknowledged === true) {
+      alert("Job Updated Successfully!");
+      reset();
+    }
   };
 
   const options = [

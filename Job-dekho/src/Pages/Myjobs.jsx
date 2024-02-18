@@ -52,23 +52,17 @@ const Myjobs = () => {
     setIsLoading(false);
   };
 
-  const handleDelete = (id) => {
+  const handleDelete = async (id) => {
     // console.log(id);
-    fetch(`http://localhost:3000/myJobs/${id}`, {
-      method: "DELETE",
-    })
-      .then((res) => res.json())
-      .then((data) => {
-        if (data.acknowledged === true) {
-          alert("Job Deleted Successfully!");
-          fetch(`http://localhost:3000/myJobs/${currentUser.email}`)
-            .then((r) => r.json())
-            .then((d) => {
-              setJobs(d);
-            });
-        }
-        setIsLoading(false);
-      });
+    const { data } = await axios.delete(`http://localhost:3000/myJobs/${id}`);
+    if (data.acknowledged === true) {
+      alert("Job Deleted Successfully!");
+      const updatedJobs = await axios.get(
+        `http://localhost:3000/myJobs/${currentUser.email}`
+      );
+      setJobs(updatedJobs.data);
+    }
+    setIsLoading(false);
   };
 
   return (
