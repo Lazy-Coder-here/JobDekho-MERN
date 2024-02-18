@@ -1,14 +1,17 @@
 import React, { useEffect, useState } from "react";
 import PageHeader from "../components/PageHeader";
+import axios from "axios";
 
 const SalaryEst = () => {
   const [searchText, setSearchText] = useState("");
   const [salary, setSalary] = useState([]);
 
   useEffect(() => {
-    fetch("salary.json")
-      .then((res) => res.json())
-      .then((data) => setSalary(data));
+    async function getSalary() {
+      const {data} = await axios.get("salary.json")
+      setSalary(data);
+    }
+    getSalary();
   }, [searchText]);
 
   const handleSearch = () => {

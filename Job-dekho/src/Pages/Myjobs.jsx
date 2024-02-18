@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { Link, Navigate } from "react-router-dom";
 import { useAuth } from "../contexts/authContext";
+import axios from "axios";
 
 const Myjobs = () => {
   const email = "rahulb@mail.com";
@@ -13,12 +14,14 @@ const Myjobs = () => {
   const { userLoggedIn, currentUser } = useAuth();
 
   useEffect(() => {
-    fetch(`http://localhost:3000/myJobs/${currentUser.email}`)
-      .then((res) => res.json())
-      .then((data) => {
-        setJobs(data);
-        setIsLoading(false);
-      });
+    async function getJobs() {
+      const { data } = await axios.get(
+        `http://localhost:3000/myJobs/${currentUser.email}`
+      );
+      setJobs(data);
+      setIsLoading(false);
+    }
+    getJobs();
   }, [searchText, jobs]);
 
   // pagination

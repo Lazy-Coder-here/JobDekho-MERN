@@ -3,6 +3,7 @@ import { useForm } from "react-hook-form";
 import CreatableSelect from "react-select/creatable";
 import { useAuth } from "../contexts/authContext";
 import { Navigate } from "react-router-dom";
+import axios from "axios";
 
 const PostJob = () => {
   const [selectedOption, setSelectedOption] = useState(null);
@@ -15,29 +16,24 @@ const PostJob = () => {
   } = useForm();
 
   const { userLoggedIn, currentUser } = useAuth();
-  
+
   useEffect(() => {
-    if(userLoggedIn) {
+    if (userLoggedIn) {
       setEmail(currentUser.email);
     }
-  }, [])
+  }, []);
 
-  const onSubmit = (data) => {
+  const onSubmit = async (data) => {
     data.skills = selectedOption;
     console.log(data);
-    fetch("http://localhost:3000/post-job", {
-      method: "POST",
+    const response = await axios.post("http://localhost:3000/post-job", data, {
       headers: { "content-type": "application/json" },
-      body: JSON.stringify(data),
-    })
-      .then((res) => res.json())
-      .then((result) => {
-        // console.log(result);
-        if (result.acknowledged === true) {
-          alert("Job Posted Successfully!");
-        }
-        reset();
-      });
+    });
+    console.log(response.data);
+    if (response.data.acknowledged === true) {
+      alert("Job Posted Successfully!");
+      reset();
+    }
   };
 
   const options = [
