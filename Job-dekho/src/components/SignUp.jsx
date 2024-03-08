@@ -2,7 +2,6 @@ import React, { useState } from "react";
 import { Navigate, Link, useNavigate } from "react-router-dom";
 import { useAuth } from "../contexts/authContext";
 import { doCreateUserWithEmailAndPassword } from "../firebase/auth";
-import validator from "email-validator";
 
 const SignUp = () => {
   const navigate = useNavigate();
@@ -15,17 +14,13 @@ const SignUp = () => {
 
   const { userLoggedIn } = useAuth();
 
-  console.log(validator.validate("rahulbsw88@gmail.com"));
   const onSubmit = async (e) => {
     e.preventDefault();
     if (!isRegistering) {
       try {
         setIsRegistering(true);
         if (password !== confirmPassword)
-          throw new Error("Your password and confirm password do not match.");
-        if (validator.validate(email) === false)
-          throw new Error("Enter a valid email-id.");
-        console.log("hello Rahul!")
+          throw new Error("*Your password and confirm password do not match.");
         await doCreateUserWithEmailAndPassword(email, password);
       } catch (error) {
         console.log(error);
@@ -33,13 +28,13 @@ const SignUp = () => {
           error.message ===
           "Firebase: Password should be at least 6 characters (auth/weak-password)."
         ) {
-          setErrorMessage("password should be at least 6 characters long");
+          setErrorMessage("*password should be at least 6 characters long");
         } else if (
-          error.message === "Your password and confirm password do not match."
+          error.message === "*Your password and confirm password do not match."
         ) {
           setErrorMessage(error.message);
         } else {
-          setErrorMessage(error.message);
+          setErrorMessage("*email already exists");
           setEmail("");
         }
         setPassword("");
