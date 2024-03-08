@@ -22,7 +22,7 @@ const Navbar = () => {
   return (
     <header className="max-w-screen-2xl container mx-auto xl:px-24 px-4">
       <nav className="flex justify-between items-center py-6">
-        <a href="/" className="flex items-center gap-2 text-2xl text-black">
+        <a href="/" className="flex items-center gap-2 text-2xl text-black font-bold">
           <svg
             xmlns="http://www.w3.org/2000/svg"
             width="29"
@@ -66,7 +66,7 @@ const Navbar = () => {
                     navigate("/");
                   });
                 }}
-                className="py-2 px-4 border rounded bg-blue text-white"
+                className="py-2 px-4 border rounded bg-blue text-white hover:bg-white hover:text-black hover:shadow-md"
               >
                 Logout
               </button>
@@ -75,7 +75,7 @@ const Navbar = () => {
             <div>
               <Link
                 to="/login"
-                className="py-2 px-5 border border-r-4 shadow rounded"
+                className="py-2 px-5 border shadow-md rounded mr-4"
               >
                 Log in
               </Link>

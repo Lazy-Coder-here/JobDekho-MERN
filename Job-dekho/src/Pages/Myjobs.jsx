@@ -4,7 +4,6 @@ import { useAuth } from "../contexts/authContext";
 import axios from "axios";
 
 const Myjobs = () => {
-  const email = "rahulb@mail.com";
   const [jobs, setJobs] = useState([]);
   const [searchText, setSearchText] = useState("");
   const [isLoading, setIsLoading] = useState(true);

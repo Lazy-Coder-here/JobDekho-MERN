@@ -104,7 +104,7 @@ const JobDetails = () => {
               {skills.map(({ label, value }) => (
                 <li
                   key={value}
-                  className="bg-gray-200 rounded-xl border-solid-black p-2"
+                  className="bg-gray-200 rounded-xl shadow-md border-solid-black p-2"
                 >
                   {label}
                 </li>
