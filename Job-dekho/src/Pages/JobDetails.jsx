@@ -17,7 +17,7 @@ const JobDetails = () => {
 
   useEffect(() => {
     async function getData() {
-      const { data } = await axios.get(`http://localhost:3000/all-jobs/${id}`);
+      const { data } = await axios.get(`https://jobdekho-mern.onrender.com/all-jobs/${id}`);
       // console.log(data);
       setJob(data);
       setSkills(data.skills);

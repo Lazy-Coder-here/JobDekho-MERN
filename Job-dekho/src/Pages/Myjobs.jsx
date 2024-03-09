@@ -15,7 +15,7 @@ const Myjobs = () => {
   useEffect(() => {
     async function getJobs() {
       const { data } = await axios.get(
-        `http://localhost:3000/myJobs/${currentUser.email}`
+        `https://jobdekho-mern.onrender.com/myJobs/${currentUser.email}`
       );
       setJobs(data);
       setIsLoading(false);
@@ -53,11 +53,11 @@ const Myjobs = () => {
 
   const handleDelete = async (id) => {
     // console.log(id);
-    const { data } = await axios.delete(`http://localhost:3000/myJobs/${id}`);
+    const { data } = await axios.delete(`https://jobdekho-mern.onrender.com/myJobs/${id}`);
     if (data.acknowledged === true) {
       alert("Job Deleted Successfully!");
       const updatedJobs = await axios.get(
-        `http://localhost:3000/myJobs/${currentUser.email}`
+        `https://jobdekho-mern.onrender.com/myJobs/${currentUser.email}`
       );
       setJobs(updatedJobs.data);
     }

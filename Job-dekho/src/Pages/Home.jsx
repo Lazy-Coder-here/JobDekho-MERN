@@ -16,7 +16,7 @@ const Home = () => {
   useEffect(() => {
     setIsLoading(true);
     async function getJobs() {
-      const { data } = await axios.get("http://localhost:3000/all-jobs");
+      const { data } = await axios.get("https://jobdekho-mern.onrender.com/all-jobs");
       setJobs(data);
       setIsLoading(false);
     }

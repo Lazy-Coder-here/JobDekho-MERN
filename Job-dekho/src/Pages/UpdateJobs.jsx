@@ -34,7 +34,7 @@ const UpdateJobs = () => {
     data.skills = selectedOption;
     // console.log(data);
     const response = await axios.patch(
-      `http://localhost:3000/update-job/${_id}`,
+      `https://jobdekho-mern.onrender.com/update-job/${_id}`,
       data,
       {
         headers: { "content-type": "application/json" },

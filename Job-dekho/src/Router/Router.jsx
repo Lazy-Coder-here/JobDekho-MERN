@@ -23,7 +23,7 @@ const router = createBrowserRouter([
         path: "/edit-job/:id",
         element: <UpdateJobs />,
         loader: ({ params }) =>
-        fetch(`http://localhost:3000/all-jobs/${params.id}`),
+        fetch(`https://jobdekho-mern.onrender.com/${params.id}`),
       },
       { path: "/job/:id", element: <JobDetails /> }
     ],

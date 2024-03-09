@@ -26,7 +26,7 @@ const PostJob = () => {
   const onSubmit = async (data) => {
     data.skills = selectedOption;
     console.log(data);
-    const response = await axios.post("http://localhost:3000/post-job", data, {
+    const response = await axios.post("https://jobdekho-mern.onrender.com/post-job", data, {
       headers: { "content-type": "application/json" },
     });
     console.log(response.data);
