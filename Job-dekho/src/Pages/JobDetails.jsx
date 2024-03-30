@@ -8,6 +8,7 @@ import { MdOutlineDateRange } from "react-icons/md";
 import { useAuth } from "../contexts/authContext";
 import { Navigate } from "react-router-dom";
 import axios from "axios";
+import BaseURL from "../Config/config";
 
 const JobDetails = () => {
   const { id } = useParams();
@@ -17,7 +18,7 @@ const JobDetails = () => {
 
   useEffect(() => {
     async function getData() {
-      const { data } = await axios.get(`https://jobdekho-mern.onrender.com/all-jobs/${id}`);
+      const { data } = await axios.get(`${BaseURL}/all-jobs/${id}`);
       // console.log(data);
       setJob(data);
       setSkills(data.skills);

@@ -4,6 +4,7 @@ import CreatableSelect from "react-select/creatable";
 import { useAuth } from "../contexts/authContext";
 import { Navigate } from "react-router-dom";
 import axios from "axios";
+import BaseURL from "../Config/config";
 
 const PostJob = () => {
   const [selectedOption, setSelectedOption] = useState(null);
@@ -26,7 +27,7 @@ const PostJob = () => {
   const onSubmit = async (data) => {
     data.skills = selectedOption;
     console.log(data);
-    const response = await axios.post("https://jobdekho-mern.onrender.com/post-job", data, {
+    const response = await axios.post(`${BaseURL}/post-job`, data, {
       headers: { "content-type": "application/json" },
     });
     console.log(response.data);

@@ -9,6 +9,7 @@ import UpdateJobs from "../Pages/UpdateJobs";
 import Login from "../components/Login";
 import JobDetails from "../Pages/JobDetails";
 import SignUp from "../components/SignUp";
+import BaseURL from "../Config/config";
 
 const router = createBrowserRouter([
   {
@@ -23,7 +24,7 @@ const router = createBrowserRouter([
         path: "/edit-job/:id",
         element: <UpdateJobs />,
         loader: ({ params }) =>
-        fetch(`https://jobdekho-mern.onrender.com/${params.id}`),
+        fetch(`${BaseURL}/all-jobs/${params.id}`),
       },
       { path: "/job/:id", element: <JobDetails /> }
     ],

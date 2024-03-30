@@ -3,6 +3,7 @@ import { useLoaderData } from "react-router-dom";
 import { useForm } from "react-hook-form";
 import CreatableSelect from "react-select/creatable";
 import axios from "axios";
+import BaseURL from "../Config/config";
 
 const UpdateJobs = () => {
   const {
@@ -34,7 +35,7 @@ const UpdateJobs = () => {
     data.skills = selectedOption;
     // console.log(data);
     const response = await axios.patch(
-      `https://jobdekho-mern.onrender.com/update-job/${_id}`,
+      `${BaseURL}/update-job/${_id}`,
       data,
       {
         headers: { "content-type": "application/json" },

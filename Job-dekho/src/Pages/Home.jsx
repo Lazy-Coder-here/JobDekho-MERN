@@ -5,6 +5,7 @@ import Jobs from "./Jobs";
 import Sidebar from "../sidebar/Sidebar";
 import Newsletter from "../components/Newsletter";
 import axios from "axios";
+import BaseURL from "../Config/config";
 
 const Home = () => {
   const [selectedCategory, setCategory] = useState(null);
@@ -16,7 +17,7 @@ const Home = () => {
   useEffect(() => {
     setIsLoading(true);
     async function getJobs() {
-      const { data } = await axios.get("https://jobdekho-mern.onrender.com/all-jobs");
+      const { data } = await axios.get(`${BaseURL}/all-jobs`);
       setJobs(data);
       setIsLoading(false);
     }

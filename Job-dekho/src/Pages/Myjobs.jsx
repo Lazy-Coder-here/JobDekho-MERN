@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import { Link, Navigate } from "react-router-dom";
 import { useAuth } from "../contexts/authContext";
 import axios from "axios";
+import BaseURL from "../Config/config";
 
 const Myjobs = () => {
   const [jobs, setJobs] = useState([]);
@@ -15,7 +16,7 @@ const Myjobs = () => {
   useEffect(() => {
     async function getJobs() {
       const { data } = await axios.get(
-        `https://jobdekho-mern.onrender.com/myJobs/${currentUser.email}`
+        `${BaseURL}/myJobs/${currentUser.email}`
       );
       setJobs(data);
       setIsLoading(false);
@@ -53,11 +54,11 @@ const Myjobs = () => {
 
   const handleDelete = async (id) => {
     // console.log(id);
-    const { data } = await axios.delete(`https://jobdekho-mern.onrender.com/myJobs/${id}`);
+    const { data } = await axios.delete(`${BaseURL}/myJobs/${id}`);
     if (data.acknowledged === true) {
       alert("Job Deleted Successfully!");
       const updatedJobs = await axios.get(
-        `https://jobdekho-mern.onrender.com/myJobs/${currentUser.email}`
+        `${BaseURL}/myJobs/${currentUser.email}`
       );
       setJobs(updatedJobs.data);
     }
