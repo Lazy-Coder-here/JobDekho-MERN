@@ -19,7 +19,6 @@ const JobDetails = () => {
   useEffect(() => {
     async function getData() {
       const { data } = await axios.get(`${BaseURL}/all-jobs/${id}`);
-      // console.log(data);
       setJob(data);
       setSkills(data.skills);
     }
@@ -36,7 +35,6 @@ const JobDetails = () => {
       Swal.fire(`Entered URL: ${url}`);
     }
   };
-  console.log(job);
   return (
     <div className="max-w-screen-2xl container mx-auto xl:px-24 px-4 space-y-8">
       {!userLoggedIn && <Navigate to={"/login"} replace={true} />}

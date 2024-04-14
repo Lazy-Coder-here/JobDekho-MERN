@@ -39,8 +39,6 @@ export function AuthProvider({ children }) {
     loading,
   };
 
-  console.log(userLoggedIn);
-  console.log(currentUser)
 
   return (
     <AuthContext.Provider value={value}>

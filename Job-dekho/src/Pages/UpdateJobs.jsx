@@ -33,7 +33,6 @@ const UpdateJobs = () => {
 
   const onSubmit = async (data) => {
     data.skills = selectedOption;
-    // console.log(data);
     const response = await axios.patch(
       `${BaseURL}/update-job/${_id}`,
       data,
@@ -41,7 +40,6 @@ const UpdateJobs = () => {
         headers: { "content-type": "application/json" },
       }
     );
-    console.log(response);
     if (response.data.acknowledged === true) {
       alert("Job Updated Successfully!");
       reset();

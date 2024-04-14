@@ -34,7 +34,6 @@ async function run() {
     app.post("/post-job", async (req, res) => {
       const data = req.body;
       data.createdAt = new Date();
-      // console.log(data);
       const result = await jobsCollection.insertOne(data);
       if (result.insertedId) {
         return res.status(200).send(result);
@@ -63,7 +62,6 @@ async function run() {
 
     // get jobs by email
     app.get("/myJobs/:email", async (req, res) => {
-      // console.log(req.params.email);
       const { email } = req.params;
       const jobs = await jobsCollection.find({ postedBy: email }).toArray();
       res.send(jobs);

@@ -19,7 +19,6 @@ const SalaryEst = () => {
       (job) =>
         job.title.toLowerCase().indexOf(searchText.toLowerCase()) !== -1
     );
-    console.log(filter);
     setSalary(filter);
   };
 

@@ -26,11 +26,9 @@ const PostJob = () => {
 
   const onSubmit = async (data) => {
     data.skills = selectedOption;
-    console.log(data);
     const response = await axios.post(`${BaseURL}/post-job`, data, {
       headers: { "content-type": "application/json" },
     });
-    console.log(response.data);
     if (response.data.acknowledged === true) {
       alert("Job Posted Successfully!");
       reset();

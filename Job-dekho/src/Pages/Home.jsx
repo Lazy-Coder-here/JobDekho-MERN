@@ -24,14 +24,12 @@ const Home = () => {
     getJobs();
   }, []);
   
-  console.log(jobs);
 
   // handle input change
   const [query, setQuery] = useState("");
   const handleInputChange = (event) => {
     setQuery(event.target.value);
   };
-  // console.log(query);
 
   // filter jobs by title
   const filteredItems = jobs.filter(

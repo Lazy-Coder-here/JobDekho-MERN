@@ -47,13 +47,11 @@ const Myjobs = () => {
       (job) =>
         job.jobTitle.toLowerCase().indexOf(searchText.toLowerCase()) !== -1
     );
-    // console.log(filter);
     setJobs(filter);
     setIsLoading(false);
   };
 
   const handleDelete = async (id) => {
-    // console.log(id);
     const { data } = await axios.delete(`${BaseURL}/myJobs/${id}`);
     if (data.acknowledged === true) {
       alert("Job Deleted Successfully!");
