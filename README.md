@@ -2,7 +2,7 @@
 ###### A Job searching website/portal, made with modern **MERN** stack technology.
 ###### Provides an user friendly interface which helps Job seekers in their job searching & Recruiters in their job posting
 
-###### Secure Login/Authentication using Forebase is provided.
+###### Secure Login/Authentication using Firebase is provided.
 
 ## Features:
 - Search Jobs based on preferred job role.
